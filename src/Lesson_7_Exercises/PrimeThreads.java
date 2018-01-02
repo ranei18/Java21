@@ -1,0 +1,57 @@
+//package Lessong_7_Exercises;
+
+
+public class PrimeThreads{
+    public static void main(String[] args){
+        PrimeThreads pt = new PrimeThreads(args);
+    }
+    
+    private void displayResult(PrimeFinder finder){
+        System.out.println("Prime " + finder.target + " is " + finder.prime);
+    }
+    public PrimeThreads(String[] args){
+        PrimeFinder[] finder = new PrimeFinder[args.length];
+        try{
+        for (int i = 0; i < args.length; i++){
+            try{
+                long count = Long.parseLong(args[i]);
+                finder[i] = new PrimeFinder(count);
+                System.out.println("Looking for prime " + count);
+            }
+            catch (NumberFormatException nfe){
+                System.out.println("Error: " + nfe.getMessage());
+            }
+        }
+        boolean complete = false;
+        while (!complete){
+            for (int j = 0; j < finder.length; j++){
+                if(finder[j] == null){ 
+                    continue;
+                }
+                if(!finder[j].finished) { 
+                    complete = false;
+                }
+                else{
+                    displayResult(finder[j]);
+                }
+                finder[j] = null;
+            }
+        }
+        try {
+            Thread.sleep(1000);
+        }
+        catch (InterruptedException ie){
+            // do nothing
+        }
+        }
+        catch(NegativeNumberException nne){
+            System.out.println("Error: " + nne.getMessage());
+        }
+    
+    
+    }
+    
+        
+    
+}
+
